@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=ecoexp
+      - MYSQL_USER=ecoexp
+      - MYSQL_PASSWORD=ecoexp
+    restart: always
+    ports:
+      - 3306:3306
