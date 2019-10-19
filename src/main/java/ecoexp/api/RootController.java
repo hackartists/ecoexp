@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class RootController {
 
     @GetMapping(produces = "application/json")

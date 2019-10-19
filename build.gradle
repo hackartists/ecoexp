@@ -7,7 +7,7 @@
  */
 
 plugins {
-	id 'org.springframework.boot' version '2.1.6.RELEASE'
+	id 'org.springframework.boot' version '2.2.0.RELEASE'
 	id 'java'
 }
 
@@ -28,6 +28,10 @@ repositories {
     }
 }
 
+configurations {
+    dev
+}
+
 dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
@@ -39,14 +43,24 @@ dependencies {
     compile 'mysql:mysql-connector-java'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'org.springframework:spring-jdbc:5.1.5.RELEASE'
-	compileOnly 'org.projectlombok:lombok:1.18.8'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.10.0'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.10.0'
+	compile group: 'com.opencsv', name: 'opencsv', version: '4.6'
+	
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.google.guava:guava:28.0-jre'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.12'
+
+	dev "org.springframework.boot:spring-boot-devtools"
 }
 
 springBoot {
 	mainClassName = 'ecoexp.App'
+}
+
+bootRun {
+    classpath = sourceSets.main.runtimeClasspath + configurations.dev
 }

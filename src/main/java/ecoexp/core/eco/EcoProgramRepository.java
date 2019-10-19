@@ -4,8 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface EcoProgramRepository extends CrudRepository<EcoProgram, Long> {
+public interface EcoProgramRepository extends CrudRepository<EcoProgramDTO, Long> {
 
-    List<EcoProgram> findByName(String name);
+    List<EcoProgramDTO> findByName(String name);
 
 }
