@@ -1,11 +1,19 @@
 package ecoexp.service;
 
-import java.io.IOException;
-
-import ecoexp.core.eco.EcoData;
-import ecoexp.core.eco.EcoProgramDTO;
-import ecoexp.core.eco.EcoProgramDAO;
+import ecoexp.common.request.CreateProgramRequest;
+import ecoexp.common.response.ProgramListResponse;
+import ecoexp.common.request.UpdateProgramRequest;
+import ecoexp.common.response.EcoResponse;
+import ecoexp.common.response.KeywordResponse;
+import ecoexp.common.response.RegionCodeReponse;
 
 public interface EcoExperienceService {
-	boolean batch(byte[] csv) throws IOException;
+	EcoResponse batch(byte[] csv);
+	KeywordResponse listByKeyword(String name);
+	EcoResponse createProgram(CreateProgramRequest req);
+	EcoResponse updateProgram(UpdateProgramRequest req);
+	RegionCodeReponse listRegions();
+//	ProgramListResponse listProgramsByThemeId(Long themeId);
+	ProgramListResponse listProgramsByRegionCode(String regionId);
+
 }

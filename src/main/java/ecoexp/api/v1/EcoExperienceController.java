@@ -1,23 +1,18 @@
 package ecoexp.api.v1;
 
+import ecoexp.common.request.CreateProgramRequest;
+import ecoexp.common.response.ProgramListResponse;
+import ecoexp.common.request.UpdateProgramRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ecoexp.service.EcoExperienceService;
 import java.io.IOException;
 import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
-import ecoexp.common.response.EcoResponse;
-import ecoexp.common.response.EcoErrors;
+import ecoexp.common.response.*;
 
 @CrossOrigin
 @RestController
@@ -41,33 +36,53 @@ public class EcoExperienceController {
     //     })
 
     @PostMapping(path= "/batch", produces = "application/json")
-    public ResponseEntity<EcoResponse> batch( @RequestParam("file") MultipartFile file) {
+    public EcoResponse batch( @RequestParam("file") MultipartFile file) {
 		logger.debug("In: batch");
-		EcoResponse res = new EcoResponse();
-
+        EcoResponse res;
 		try {
-			res.code=0;
-			res.message=ecoExperienceService.batch(file.getBytes());
-		} catch (IOException e) {
-			res = EcoErrors.BatchError;
-		}
-
+            res = ecoExperienceService.batch(file.getBytes());
+        }catch(IOException e) {
+		    res=EcoErrors.BatchError;
+        }
 		logger.debug("Out: batch");
-        return ResponseEntity.ok(res);
+        return res;
     }
 
     @PostMapping(path="/create", produces = "application/json")
-    public String createData() {
+    public EcoResponse createData(@RequestBody CreateProgramRequest req) {
 		logger.debug("In: createData()");
+		logger.debug("Request Body: {}", req);
+        EcoResponse res = ecoExperienceService.createProgram(req);
 		logger.debug("Out: createData()");
-        return "createData";
+
+        return res;
     }
 
-    @GetMapping(path="/region{regionId}",produces = "application/json")
-    public String getData(@PathVariable String regionId) {
-		logger.debug("In: getData");
+    @PostMapping(path="/update", produces = "application/json")
+    public EcoResponse updateData(@RequestBody UpdateProgramRequest req) {
+        logger.debug("In: updateData()");
+        logger.debug("Request Body: {}", req);
+        EcoResponse res = ecoExperienceService.updateProgram(req);
+        logger.debug("Out: updateData()");
+
+        return res;
+    }
+
+    @GetMapping(path="/list/regions", produces = "application/json")
+    public RegionCodeReponse listRegions() {
+        logger.debug("In: listRegions()");
+        RegionCodeReponse res = ecoExperienceService.listRegions();
+        logger.debug("Out: listRegions()");
+
+        return res;
+    }
+
+    @GetMapping(path="/region/{regionId}",produces = "application/json")
+    public ProgramListResponse getData(@PathVariable String regionId) {
+		logger.debug("In: getData({})",regionId);
+		ProgramListResponse res = ecoExperienceService.listProgramsByRegionCode(regionId);
 		logger.debug("Out: getData");
-        return "getData";
+        return res;
     }
 
     @PostMapping(path="/udpate", produces = "application/json")
@@ -85,10 +100,11 @@ public class EcoExperienceController {
     }
 
     @GetMapping(path="/list/keyword", produces = "application/json")
-    public String listDataByKeyword() {
+    public ResponseEntity<KeywordResponse> listDataByKeyword(String keyword) {
 		logger.debug("In: listDataByKeyword");
+		KeywordResponse res = ecoExperienceService.listByKeyword(keyword);
 		logger.debug("Out: listDataByKeyword");
-        return "listDataByKeyword";
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping(path="/count/keyword", produces = "application/json")

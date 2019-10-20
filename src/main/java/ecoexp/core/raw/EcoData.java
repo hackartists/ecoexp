@@ -1,21 +1,12 @@
-package ecoexp.core.eco;
+package ecoexp.core.raw;
 
 import java.io.IOException;
 import java.util.List;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.opencsv.bean.CsvBindByName;
 import java.io.StringReader;
-import com.opencsv.bean.CsvToBeanBuilder;
 import java.util.Iterator;
-import com.opencsv.bean.CsvToBean;
-
 
 public class EcoData {
 	private static Logger logger = LoggerFactory.getLogger(EcoData.class);
@@ -26,6 +17,8 @@ public class EcoData {
 	public String region;
 	public String intro;
 	public String detail;
+
+	public EcoData() {}
 
 	public EcoData(String[] data) {
 		this.num = Long.parseLong(data[0]);
