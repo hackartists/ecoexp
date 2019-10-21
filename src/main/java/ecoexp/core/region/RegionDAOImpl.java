@@ -32,28 +32,11 @@ public class RegionDAOImpl implements RegionDAO {
 	}
 
 	@Override
-	public List<RegionDTO> findByName(String name) {
-		logger.debug("In: findByName");
-		List<RegionDTO> res = regionRepository.findByName(name);
-		logger.debug("Out: findByName");
-
-		return res;
-	}
-
-	@Override
 	public List<RegionDTO> findCodes() {
 		logger.debug("In: findCodes");
 		List<RegionDTO> res = regionRepository.findAllRegions();
 		logger.debug("Out: findCodes");
 
-		return res;
-	}
-
-	@Override
-	public RegionDTO findById(Long regionId) {
-		logger.debug("In: findByLinkedPrograms_RegionId");
-		RegionDTO res = regionRepository.findById(regionId).get();
-		logger.debug("Out: findByLinkedPrograms_RegionId");
 		return res;
 	}
 

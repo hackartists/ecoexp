@@ -21,23 +21,4 @@ public class ThemeDAOImpl implements ThemeDAO {
 		logger.debug("Out: save");
 		return true;
 	}
-
-	@Override
-	public List<ThemeDTO> findByName(String name) {
-		logger.debug("In: findByName");
-		List<ThemeDTO> res = themeRepository.findByName(name);
-		logger.debug("Result: {}", res);
-		logger.debug("Out: findByName");
-
-		return res;
-	}
-
-	@Override
-	public List<ThemeDTO> findProgramsByKeyword(String keyword) {
-		logger.debug("In: findProgramsByKeyword");
-		List<ThemeDTO> res = themeRepository.findProgramsByKeyword(String.format("%%%s%%",keyword));
-		logger.debug("Out: findProgramsByKeyword");
-
-		return res;
-	}
 }

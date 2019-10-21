@@ -14,6 +14,4 @@ public class ThemeDAOTest {
 	@Autowired ThemeDAO dao;
 
 	@Test public void save() { }
-	@Test public void findByName() { }
-	@Test public void findProgramsByKeyword() { }
 }

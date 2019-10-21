@@ -140,7 +140,7 @@ public class EcoExperienceServiceTest {
 		assertEquals(res.keyword, req.keyword);
 		assertEquals(res.count, r);
 	}
-	
+
 	private ProgramRegionCountDTO getDefaultProgramRegionCountDTO() {
 		ProgramRegionCountDTO res = new ProgramRegionCountDTO();
 		res.setRegion("경상남도 경주시");

@@ -14,9 +14,7 @@ public class RegionDAOTest {
 	@Autowired RegionDAO dao;
 
 	@Test public void save() throws Exception {}
-	@Test public void findByName() throws Exception {}
 	@Test public void findCodes() throws Exception {}
 	@Test public void findProgramsByName() throws Exception {}
-	@Test public void findById() throws Exception {}
 	@Test public void findProgramsByRegionCode() throws Exception {}
 }

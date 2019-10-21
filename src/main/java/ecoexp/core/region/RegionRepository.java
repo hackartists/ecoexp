@@ -8,8 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RegionRepository extends CrudRepository<RegionDTO, Long> {
-    List<RegionDTO> findByName(String name);
-
     @Query("SELECT r FROM RegionDTO r")
     List<RegionDTO> findAllRegions();
 

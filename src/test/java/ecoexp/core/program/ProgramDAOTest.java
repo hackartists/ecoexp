@@ -17,10 +17,6 @@ public class ProgramDAOTest {
 
 	@Test public void update() { }
 
-	@Test public void findByName() { }
-
-	@Test public void findByLinkedThemes_Name() { }
-
 	@Test public void countByRegion_Keyword() { }
 
 	@Test public void countKeyword() { }
