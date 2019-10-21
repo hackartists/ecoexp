@@ -5,6 +5,7 @@ import ecoexp.common.utils.Generalizer;
 import ecoexp.core.program.ProgramDTO;
 import ecoexp.core.raw.EcoData;
 import ecoexp.core.theme.ThemeDTO;
+import org.hibernate.annotations.NaturalId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,6 @@ public class RegionDTO {
 	private Logger logger = LoggerFactory.getLogger(RegionDTO.class);
 
 	@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="REGION_ID")
     private Long id;
 
@@ -35,14 +35,8 @@ public class RegionDTO {
 	private String regionCode;
 
 	@ManyToMany(fetch = FetchType.LAZY,
-				cascade = {
-					CascadeType.PERSIST,
-					CascadeType.MERGE
-				})
-	@JoinTable(
-		name = "region_links",
-		joinColumns = @JoinColumn(name="PROGRAM_ID"),
-		inverseJoinColumns= @JoinColumn(name="REGION_ID"))
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+			mappedBy="linkedRegions")
     private Set<ProgramDTO> linkedPrograms = new HashSet<ProgramDTO>();
 
 	public RegionDTO() {

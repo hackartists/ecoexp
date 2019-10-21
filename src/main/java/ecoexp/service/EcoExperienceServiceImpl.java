@@ -63,6 +63,7 @@ public class EcoExperienceServiceImpl implements EcoExperienceService {
 		logger.debug("Data size: {}", data.size());
 		KeywordResponse res = new KeywordResponse();
 		res.keyword = keyword;
+		data.forEach(el->res.addProgram(el.getRegion(),1));
 		logger.debug("Out: listByKeyword");
 
 		return res;
@@ -110,14 +111,25 @@ public class EcoExperienceServiceImpl implements EcoExperienceService {
 //	}
 
 	@Override
-	public ProgramListResponse listProgramsByRegionCode(String regionId) {
+	public ProgramListResponse listProgramsByRegionCode(String regionCode) {
 		logger.debug("In: listProgramsByRegionId");
 		ProgramListResponse res = new ProgramListResponse();
-//		programDAO.findByLinkedRegions_Region_Code(regionId).stream().forEach(res::addProgram);
-
-		//regionDAO.findById(regionId).getLinkedPrograms().forEach(res::addProgram);
+		// programDAO.findProgramsByRegionCode(regionCode).stream().forEach(res::addProgram);
+		regionDAO.findProgramsByRegionCode(regionCode).stream().forEach(el->{
+			el.getLinkedPrograms().forEach(res::addProgram);
+		});
 
 		logger.debug("Out: listProgramsByRegionId");
+
+		return res;
+	}
+
+	@Override
+	public ProgramListResponse listProgramsByRegion(String regionName) {
+		logger.debug("In: listProgramsByRegion");
+		ProgramListResponse res = new ProgramListResponse();
+		regionDAO.findProgramsByName(regionName).forEach(el->el.getLinkedPrograms().forEach(res::addProgram));
+		logger.debug("Out: listProgramsByRegion");
 
 		return res;
 	}

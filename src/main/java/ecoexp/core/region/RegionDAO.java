@@ -9,7 +9,7 @@ public interface RegionDAO {
 	boolean save(RegionDTO ecoProgram) throws IOException;
 	List<RegionDTO> findByName(String name);
 	List<RegionDTO> findCodes();
-	// List<RegionDTO> findByRegionId(Long regionId);
+	List<RegionDTO> findProgramsByName(String name);
 	RegionDTO findById(Long id);
-//	List<RegionDTO> findProgramsByRegionId(Long regionId);
+	List<RegionDTO> findProgramsByRegionCode(String regionCode);
 }

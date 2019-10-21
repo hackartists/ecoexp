@@ -14,6 +14,7 @@ public interface EcoExperienceService {
 	EcoResponse updateProgram(UpdateProgramRequest req);
 	RegionCodeReponse listRegions();
 //	ProgramListResponse listProgramsByThemeId(Long themeId);
-	ProgramListResponse listProgramsByRegionCode(String regionId);
+	ProgramListResponse listProgramsByRegionCode(String regionCode);
+	ProgramListResponse listProgramsByRegion(String regionName);
 
 }

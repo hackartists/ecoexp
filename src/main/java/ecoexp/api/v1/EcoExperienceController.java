@@ -1,6 +1,7 @@
 package ecoexp.api.v1;
 
 import ecoexp.common.request.CreateProgramRequest;
+import ecoexp.common.request.ListByRegionRequest;
 import ecoexp.common.response.ProgramListResponse;
 import ecoexp.common.request.UpdateProgramRequest;
 import org.slf4j.Logger;
@@ -77,10 +78,10 @@ public class EcoExperienceController {
         return res;
     }
 
-    @GetMapping(path="/region/{regionId}",produces = "application/json")
-    public ProgramListResponse getData(@PathVariable String regionId) {
-		logger.debug("In: getData({})",regionId);
-		ProgramListResponse res = ecoExperienceService.listProgramsByRegionCode(regionId);
+    @GetMapping(path="/region/{regionCode}",produces = "application/json")
+    public ProgramListResponse getData(@PathVariable String regionCode) {
+		logger.debug("In: getData({})",regionCode);
+		ProgramListResponse res = ecoExperienceService.listProgramsByRegionCode(regionCode);
 		logger.debug("Out: getData");
         return res;
     }
@@ -92,11 +93,12 @@ public class EcoExperienceController {
         return "updateData";
     }
 
-    @GetMapping(path="/list/region", produces = "application/json")
-    public String listDataByRegion() {
-		logger.debug("In: listDataByRegion");
+    @GetMapping(path="/list/region", consumes = "application/json", produces = "application/json")
+    public ProgramListResponse listDataByRegion(@RequestBody ListByRegionRequest region) {
+		logger.debug("In: listDataByRegion({})", region.region);
+		ProgramListResponse res = ecoExperienceService.listProgramsByRegion(region.region);
 		logger.debug("Out: listDataByRegion");
-        return "listDataByRegion";
+        return res;
     }
 
     @GetMapping(path="/list/keyword", produces = "application/json")

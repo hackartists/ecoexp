@@ -58,12 +58,12 @@ public class ProgramDAOImpl implements ProgramDAO {
 //	    return res;
 //    }
 
-//    @Override
-//    public List<ProgramDTO> findByLinkedRegions_Region_Code(String regionCode) {
-//        logger.debug("In: findByLinkedRegions_RegionId");
-//        List<ProgramDTO> res = programRepository.findByLinkedRegions_Region_Code(regionCode);
-//        logger.debug("Out: findByLinkedRegions_RegionId");
-//
-//        return res;
-//    }
+    @Override
+    public List<ProgramDTO> findProgramsByRegionCode(String regionCode) {
+        logger.debug("In: findByLinkedRegions_RegionCode");
+        List<ProgramDTO> res = programRepository.findProgramsByRegionCode(regionCode);
+        logger.debug("Out: findByLinkedRegions_RegionCode");
+
+        return res;
+    }
 }

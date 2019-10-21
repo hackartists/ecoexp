@@ -4,6 +4,7 @@ import ecoexp.core.theme.ThemeDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -53,14 +54,22 @@ public class RegionDAOImpl implements RegionDAO {
 		return res;
 	}
 
-//	@Override
-//	public List<RegionDTO> findProgramsByRegionId(Long regionId) {
-//		logger.debug("In: findByLinkedPrograms_RegionId");
-//		List<RegionDTO> res = regionRepository.findProgramsByRegionId(regionId);
-//		logger.debug("Size: {}, {}", res.size());
-//		logger.debug("Out: findByLinkedPrograms_RegionId");
-//		return res;
-//	}
+	@Override
+	public List<RegionDTO> findProgramsByRegionCode(String regionCode) {
+		logger.debug("In: findByLinkedPrograms_RegionId");
+		List<RegionDTO> res = regionRepository.findProgramsByRegionCode(regionCode);
+		logger.debug("Size: {}", res.size());
+		logger.debug("Out: findByLinkedPrograms_RegionId");
 
+		return res;
+	}
 
+	@Override
+	public List<RegionDTO> findProgramsByName(String name) {
+		logger.debug("In: findProgramsByName");
+		List<RegionDTO> res = regionRepository.findProgramsByName(name);
+		logger.debug("Out: findProgramsByName");
+
+		return res;
+	}
 }

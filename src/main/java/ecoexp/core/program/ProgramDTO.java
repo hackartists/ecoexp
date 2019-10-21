@@ -30,21 +30,15 @@ public class ProgramDTO {
     private String name;
 
 	@ManyToMany(fetch = FetchType.LAZY,
-				cascade = {
-					CascadeType.PERSIST,
-					CascadeType.MERGE
-				})
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
-		name = "theme_links",
-		joinColumns = @JoinColumn(name="PROGRAM_ID"),
-		inverseJoinColumns= @JoinColumn(name="THEME_ID"))
+			name = "theme_links",
+			joinColumns = @JoinColumn(name="PROGRAM_ID"),
+			inverseJoinColumns= @JoinColumn(name="THEME_ID"))
     private Set<ThemeDTO> linkedThemes=new HashSet<ThemeDTO>();
 
 	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-					CascadeType.PERSIST,
-					CascadeType.MERGE
-			})
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 			name = "region_links",
 			joinColumns = @JoinColumn(name="PROGRAM_ID"),

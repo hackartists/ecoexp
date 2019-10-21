@@ -23,21 +23,18 @@ public class ThemeDTO {
 	private Logger logger = LoggerFactory.getLogger(ThemeDTO.class);
 
     @Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="THEME_ID")
     private Long id;
 
 	@NotNull
-	@NaturalId
+	// @NaturalId
 	@Column(name="NAME")
     private String name;
 
 	@ManyToMany(fetch = FetchType.LAZY,
-				 cascade = {
-					 CascadeType.PERSIST,
-					 CascadeType.MERGE
-				 },mappedBy="linkedThemes")
-				 private Set<ProgramDTO> linkedPrograms =  new HashSet<ProgramDTO>();
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+			mappedBy="linkedThemes")
+	private Set<ProgramDTO> linkedPrograms =  new HashSet<ProgramDTO>();
 
 
 	public ThemeDTO() {
