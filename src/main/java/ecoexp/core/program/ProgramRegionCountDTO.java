@@ -7,6 +7,7 @@ public class ProgramRegionCountDTO {
 	private String region;
 	private Long count;
 
+	public ProgramRegionCountDTO() { }
 	public ProgramRegionCountDTO(Object[] data) {
 		this.region = (String)data[0];
 		this.count = ((BigInteger)data[1]).longValue();

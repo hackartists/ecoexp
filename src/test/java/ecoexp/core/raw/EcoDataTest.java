@@ -3,5 +3,5 @@ package ecoexp.core.raw;
 import org.junit.Test;
 
 public class EcoDataTest {
-	@Test void parseFromCsvTest() { }
+	@Test public  void parseFromCsvTest() { }
 }

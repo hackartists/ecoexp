@@ -113,14 +113,6 @@ public class EcoExperienceController {
         return res;
     }
 
-    @GetMapping(path="/list/keyword", produces = "application/json")
-    public ResponseEntity<KeywordResponse> listDataByKeyword(String keyword) {
-		logger.debug("In: listDataByKeyword");
-		KeywordResponse res = ecoExperienceService.listByKeyword(keyword);
-		logger.debug("Out: listDataByKeyword");
-        return ResponseEntity.ok(res);
-    }
-
     // Optional
     @GetMapping(path="/recommend", produces = "application/json")
     public String recommend() {

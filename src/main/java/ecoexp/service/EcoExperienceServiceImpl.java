@@ -61,19 +61,6 @@ public class EcoExperienceServiceImpl implements EcoExperienceService {
 	}
 
 	@Override
-	public KeywordResponse listByKeyword(String keyword) {
-		logger.debug("In: listBytKeyword");
-		List<ProgramDTO> data = programDAO.findByLinkedThemes_Name(keyword);
-		logger.debug("Data size: {}", data.size());
-		KeywordResponse res = new KeywordResponse();
-		res.keyword = keyword;
-		data.forEach(el->res.addProgram(el.getRegion(),1));
-		logger.debug("Out: listByKeyword");
-
-		return res;
-	}
-
-	@Override
 	public EcoResponse createProgram(CreateProgramRequest req) {
 		EcoResponse res = new EcoResponse();
 

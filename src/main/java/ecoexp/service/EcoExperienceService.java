@@ -14,11 +14,9 @@ import ecoexp.common.response.KeywordFrequencyResponse;
 
 public interface EcoExperienceService {
 	EcoResponse batch(byte[] csv);
-	KeywordResponse listByKeyword(String name);
 	EcoResponse createProgram(CreateProgramRequest req);
 	EcoResponse updateProgram(UpdateProgramRequest req);
 	RegionCodeReponse listRegions();
-//	ProgramListResponse listProgramsByThemeId(Long themeId);
 	ProgramListResponse listProgramsByRegionCode(String regionCode);
 	ListByRegionResponse listProgramsByRegion(ListByRegionRequest region);
 	CountProgramByRegionResponse countProgramsByRegion(KeywordQueryRequest keyword);

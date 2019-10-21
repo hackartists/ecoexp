@@ -44,24 +44,6 @@ public class ProgramDAOImpl implements ProgramDAO {
 	}
 
 	@Override
-	public List<ProgramDTO> findByName(String name) {
-		logger.debug("In: findByName");
-		List<ProgramDTO> res = programRepository.findByName(name);
-		logger.debug("Out: findByName");
-
-		return res;
-	}
-
-	@Override
-	public List<ProgramDTO> findByLinkedThemes_Name(String themeName){
-		logger.debug("In: findByLinkedThemes_Name");
-		List<ProgramDTO> res =  programRepository.findByLinkedThemes_Name(themeName);
-		logger.debug("Out: findByLinkedThemes_Name");
-
-		return res;
-	}
-
-	@Override
 	public List<ProgramRegionCountDTO> countByRegion_Keyword(String keyword) {
 		logger.debug("In: countByRegion_Keyword({})",keyword);
 		String qry = String.format("%%%s%%",keyword);

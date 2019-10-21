@@ -4,5 +4,5 @@ import org.junit.Test;
 
 
 public class GeneralizerTest {
-	@Test void regionTest() { }
+	@Test public void regionTest() { }
 }
