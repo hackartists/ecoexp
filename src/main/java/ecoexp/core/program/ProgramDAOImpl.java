@@ -27,7 +27,7 @@ public class ProgramDAOImpl implements ProgramDAO {
 		logger.debug("In: save");
 		programRepository.save(dto);
 		logger.debug("Out: save");
-		return false;
+		return true;
 	}
 
 	@Override

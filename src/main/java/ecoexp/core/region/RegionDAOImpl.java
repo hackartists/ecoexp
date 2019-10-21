@@ -26,9 +26,8 @@ public class RegionDAOImpl implements RegionDAO {
 	public boolean save(RegionDTO dto) throws IOException {
 		logger.debug("In: save");
 		regionRepository.save(dto);
-
 		logger.debug("Out: save");
-		return false;
+		return true;
 	}
 
 	@Override

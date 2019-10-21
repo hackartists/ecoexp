@@ -43,8 +43,8 @@ public class EcoExperienceServiceTest {
 		when(programDAO.save(any(ProgramDTO.class))).thenReturn(true);
 
 		EcoResponse res = service.batch(csv.getBytes());
-		assertEquals(res.code.longValue(), (long)0);
-		assertEquals(res.message, true);
+		assertEquals((long)0, res.code.longValue());
+		assertEquals(true, res.message);
 	}
 
 	@Test public void createProgram() throws Exception {
@@ -58,8 +58,8 @@ public class EcoExperienceServiceTest {
 		when(programDAO.save(any(ProgramDTO.class))).thenReturn(true);
 
 		EcoResponse res = service.createProgram(req);
-		assertEquals(res.code.longValue(), (long)0);
-		assertEquals(res.message, true);
+		assertEquals((long)0, res.code.longValue());
+		assertEquals(true, res.message);
 
 	}
 	@Test public void updateProgram() throws Exception {
@@ -72,8 +72,8 @@ public class EcoExperienceServiceTest {
 
 		when(programDAO.update(any(ProgramDTO.class))).thenReturn(true);
 		EcoResponse res = service.updateProgram(req);
-		assertEquals(res.code.longValue(), (long)0);
-		assertEquals(res.message, true);
+		assertEquals((long)0, res.code.longValue());
+		assertEquals(true, res.message);
 	}
 
 	@Test public void listRegions() throws Exception {
@@ -82,7 +82,7 @@ public class EcoExperienceServiceTest {
 		when(regionDAO.findCodes()).thenReturn(rd);
 
 		RegionCodeReponse res = service.listRegions();
-		assertEquals(res.regions.size(), 1);
+		assertEquals(1, res.regions.size());
 	}
 
 	@Test public void listProgramsByRegionCode() throws Exception {
@@ -96,8 +96,8 @@ public class EcoExperienceServiceTest {
 
 		ProgramListResponse res = service.listProgramsByRegionCode("reg123");
 
-		assertEquals(res.code.intValue(),0);
-		assertEquals(res.programs.size(), rd.get(0).getLinkedPrograms().size());
+		assertEquals(0, res.code.intValue());
+		assertEquals(rd.get(0).getLinkedPrograms().size(), res.programs.size());
 	}
 
 	@Test public void listProgramsByRegion() throws Exception {
@@ -110,8 +110,8 @@ public class EcoExperienceServiceTest {
 
 		ListByRegionResponse res = service.listProgramsByRegion(req);
 
-		assertEquals(res.region, data.getRegionCode());
-		assertEquals(res.programs.size(), data.getLinkedPrograms().size());
+		assertEquals(data.getRegionCode(), res.region);
+		assertEquals(data.getLinkedPrograms().size(), res.programs.size());
 	}
 
 	@Test public void countProgramByRegion() throws Exception {
@@ -125,8 +125,8 @@ public class EcoExperienceServiceTest {
 
 		CountProgramByRegionResponse res = service.countProgramsByRegion(req);
 
-		assertEquals(res.keyword, req.keyword);
-		assertEquals(res.programs.size(), l.size());
+		assertEquals(req.keyword, res.keyword);
+		assertEquals(l.size(), res.programs.size());
 	}
 
 	@Test public void countKeyword() throws Exception {
@@ -137,8 +137,8 @@ public class EcoExperienceServiceTest {
 		when(programDAO.countKeyword(any(String.class))).thenReturn(r);
 
 		KeywordFrequencyResponse res = service.countKeyword(req);
-		assertEquals(res.keyword, req.keyword);
-		assertEquals(res.count, r);
+		assertEquals(req.keyword, res.keyword);
+		assertEquals(r, res.count);
 	}
 
 	private ProgramRegionCountDTO getDefaultProgramRegionCountDTO() {
