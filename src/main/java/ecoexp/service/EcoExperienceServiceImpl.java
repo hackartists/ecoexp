@@ -96,21 +96,10 @@ public class EcoExperienceServiceImpl implements EcoExperienceService {
 		return res;
 	}
 
-//	@Override
-//	public ProgramListResponse listProgramsByThemeId(Long themeId) {
-//		logger.debug("In: listProgramsByThemeId");
-//		ProgramListResponse res = new ProgramListResponse();
-//		res.programs = programDAO.findByLinkedThemes_ThemeId(themeId);
-//		logger.debug("Out: listProgramsByThemeId");
-//
-//		return res;
-//	}
-
 	@Override
 	public ProgramListResponse listProgramsByRegionCode(String regionCode) {
 		logger.debug("In: listProgramsByRegionId");
 		ProgramListResponse res = new ProgramListResponse();
-		// programDAO.findProgramsByRegionCode(regionCode).stream().forEach(res::addProgram);
 		regionDAO.findProgramsByRegionCode(regionCode).stream().forEach(el->{
 			el.getLinkedPrograms().forEach(res::addProgram);
 		});
