@@ -14,6 +14,7 @@ import java.io.IOException;
 import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import ecoexp.common.response.*;
+import ecoexp.common.request.KeywordQueryRequest;
 
 @CrossOrigin
 @RestController
@@ -59,10 +60,12 @@ public class EcoExperienceController {
         return res;
     }
 
-    @PostMapping(path="/update", produces = "application/json")
-    public EcoResponse updateData(@RequestBody UpdateProgramRequest req) {
+    @PostMapping(path="/update/{programId}", produces = "application/json")
+    public EcoResponse updateData(@PathVariable Long programId, @RequestBody UpdateProgramRequest req) {
         logger.debug("In: updateData()");
+		logger.debug("Path Variable: {}", programId);
         logger.debug("Request Body: {}", req);
+		req.id = programId;
         EcoResponse res = ecoExperienceService.updateProgram(req);
         logger.debug("Out: updateData()");
 
@@ -86,18 +89,27 @@ public class EcoExperienceController {
         return res;
     }
 
-    @PostMapping(path="/udpate", produces = "application/json")
-    public String updateData() {
-		logger.debug("In: updateData");
-		logger.debug("Out: updateData");
-        return "updateData";
+    @GetMapping(path="/list/region", consumes = "application/json", produces = "application/json")
+    public ListByRegionResponse listDataByRegion(@RequestBody ListByRegionRequest region) {
+		logger.debug("In: listDataByRegion({})", region.region);
+		ListByRegionResponse res = ecoExperienceService.listProgramsByRegion(region);
+		logger.debug("Out: listDataByRegion");
+        return res;
     }
 
-    @GetMapping(path="/list/region", consumes = "application/json", produces = "application/json")
-    public ProgramListResponse listDataByRegion(@RequestBody ListByRegionRequest region) {
-		logger.debug("In: listDataByRegion({})", region.region);
-		ProgramListResponse res = ecoExperienceService.listProgramsByRegion(region.region);
-		logger.debug("Out: listDataByRegion");
+	@GetMapping(path="/list/keyword/count", produces = "application/json")
+    public CountProgramByRegionResponse countProgramsByRegion(@RequestBody KeywordQueryRequest req) {
+		logger.debug("In: countDataByKeyword");
+		CountProgramByRegionResponse res = ecoExperienceService.countProgramsByRegion(req);
+		logger.debug("Out: countDataByKeyword");
+        return res;
+    }
+
+	@GetMapping(path="/count/keyword", produces = "application/json")
+    public KeywordFrequencyResponse countKeyword(@RequestBody KeywordQueryRequest req) {
+		logger.debug("In: countKeyword");
+		KeywordFrequencyResponse res = ecoExperienceService.countKeyword(req);
+		logger.debug("Out: countKeyword");
         return res;
     }
 
@@ -107,13 +119,6 @@ public class EcoExperienceController {
 		KeywordResponse res = ecoExperienceService.listByKeyword(keyword);
 		logger.debug("Out: listDataByKeyword");
         return ResponseEntity.ok(res);
-    }
-
-    @GetMapping(path="/count/keyword", produces = "application/json")
-    public String countDataByKeyword() {
-		logger.debug("In: countDataByKeyword");
-		logger.debug("Out: countDataByKeyword");
-        return "listDataByKeyword";
     }
 
     // Optional

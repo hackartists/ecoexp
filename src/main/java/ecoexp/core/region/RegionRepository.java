@@ -10,10 +10,10 @@ import java.util.List;
 public interface RegionRepository extends CrudRepository<RegionDTO, Long> {
     List<RegionDTO> findByName(String name);
 
-    @Query("SELECT t FROM RegionDTO t")
+    @Query("SELECT r FROM RegionDTO r")
     List<RegionDTO> findAllRegions();
 
-    @Query("SELECT t FROM RegionDTO t join ProgramDTO p WHERE t.name like :name")
+    @Query("SELECT r FROM RegionDTO r join fetch r.linkedPrograms WHERE r.name like :name")
     List<RegionDTO> findProgramsByName(@Param("name") String name);
 
     @Query("SELECT r FROM RegionDTO r join fetch r.linkedPrograms WHERE r.regionCode like :regionCode")

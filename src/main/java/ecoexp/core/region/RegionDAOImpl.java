@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
+import ecoexp.common.utils.Generalizer;
+import ecoexp.common.exception.EcoException;
+import ecoexp.common.response.ErrorCode;
 
 import java.io.IOException;
 import java.util.List;
@@ -65,11 +68,14 @@ public class RegionDAOImpl implements RegionDAO {
 	}
 
 	@Override
-	public List<RegionDTO> findProgramsByName(String name) {
+	public RegionDTO findProgramsByName(String name) throws EcoException {
 		logger.debug("In: findProgramsByName");
-		List<RegionDTO> res = regionRepository.findProgramsByName(name);
+		List<RegionDTO> res = regionRepository.findProgramsByName(Generalizer.region(name));
 		logger.debug("Out: findProgramsByName");
+		if (res.size() < 1) {
+			throw new EcoException(ErrorCode.NotFoundErrorCode, String.format("Not found data with region name ({})", name));
+		}
 
-		return res;
+		return res.get(0);
 	}
 }

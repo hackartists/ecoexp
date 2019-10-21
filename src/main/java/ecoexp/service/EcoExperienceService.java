@@ -6,6 +6,11 @@ import ecoexp.common.request.UpdateProgramRequest;
 import ecoexp.common.response.EcoResponse;
 import ecoexp.common.response.KeywordResponse;
 import ecoexp.common.response.RegionCodeReponse;
+import ecoexp.common.request.ListByRegionRequest;
+import ecoexp.common.response.ListByRegionResponse;
+import ecoexp.common.response.CountProgramByRegionResponse;
+import ecoexp.common.request.KeywordQueryRequest;
+import ecoexp.common.response.KeywordFrequencyResponse;
 
 public interface EcoExperienceService {
 	EcoResponse batch(byte[] csv);
@@ -15,6 +20,8 @@ public interface EcoExperienceService {
 	RegionCodeReponse listRegions();
 //	ProgramListResponse listProgramsByThemeId(Long themeId);
 	ProgramListResponse listProgramsByRegionCode(String regionCode);
-	ProgramListResponse listProgramsByRegion(String regionName);
+	ListByRegionResponse listProgramsByRegion(ListByRegionRequest region);
+	CountProgramByRegionResponse countProgramsByRegion(KeywordQueryRequest keyword);
+	KeywordFrequencyResponse countKeyword(KeywordQueryRequest keyword);
 
 }

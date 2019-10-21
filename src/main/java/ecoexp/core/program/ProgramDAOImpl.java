@@ -10,6 +10,9 @@ import ecoexp.core.theme.ThemeRepository;
 import ecoexp.core.theme.ThemeDAO;
 import ecoexp.core.theme.ThemeDTO;
 import java.util.*;
+import ecoexp.common.exception.EcoException;
+import ecoexp.common.response.ErrorCode;
+import java.math.BigInteger;
 
 
 @Component
@@ -20,15 +23,24 @@ public class ProgramDAOImpl implements ProgramDAO {
 	ProgramRepository programRepository;
 
 	@Override
-	public boolean save(ProgramDTO dto) throws IOException {
+	public boolean save(ProgramDTO dto) {
 		logger.debug("In: save");
-		// for (ThemeDTO el: dto.getLinkedThemes()) {
-		// 	themeDAO.save(el);
-		// }
 		programRepository.save(dto);
-
 		logger.debug("Out: save");
 		return false;
+	}
+
+	@Override
+	public boolean update(ProgramDTO ecoProgram) throws EcoException {
+		logger.debug("In: update");
+		if (!programRepository.existsById(ecoProgram.getId())) {
+			logger.error("Document({}) does not exist", ecoProgram.getId());
+			throw new EcoException(ErrorCode.UpdateErrorCode, String.format("Document({}) does not exist", ecoProgram.getId()));
+		}
+		programRepository.save(ecoProgram);
+		logger.debug("Out: update");
+
+		return true;
 	}
 
 	@Override
@@ -49,21 +61,29 @@ public class ProgramDAOImpl implements ProgramDAO {
 		return res;
 	}
 
-//	@Override
-//    public List<ProgramDTO> findByLinkedThemes_ThemeId(Long themeId) {
-//	    logger.debug("In: findByLinkedThemes_ThemeId");
-//	    List<ProgramDTO> res = programRepository.findByLinkedThemes_ThemeId(themeId);
-//	    logger.debug("Out: findByLinkedThemes_ThemeId");
-//
-//	    return res;
-//    }
+	@Override
+	public List<ProgramRegionCountDTO> countByRegion_Keyword(String keyword) {
+		logger.debug("In: countByRegion_Keyword({})",keyword);
+		String qry = String.format("%%%s%%",keyword);
+		logger.debug("Query string: {}", qry);
+		List<ProgramRegionCountDTO> res = new ArrayList<ProgramRegionCountDTO>();
+		List<Object[]> data = programRepository.countByRegion_Keyword(qry);
+		data.forEach(el->{
+				logger.debug("{}:{}",el[0],el[1]);
+				res.add(new ProgramRegionCountDTO(el));
+			});
+		logger.debug("Out: countByRegion_Keyword");
 
-    @Override
-    public List<ProgramDTO> findProgramsByRegionCode(String regionCode) {
-        logger.debug("In: findByLinkedRegions_RegionCode");
-        List<ProgramDTO> res = programRepository.findProgramsByRegionCode(regionCode);
-        logger.debug("Out: findByLinkedRegions_RegionCode");
+		return res;
+	}
 
-        return res;
-    }
+	@Override
+	public Long countKeyword(String keyword) {
+		List<Object[]> data = programRepository.countKeyword(keyword);
+		if ( data.size() <= 0) {
+			return (long)0;
+		}
+
+		return (long)((Integer) data.get(0)[0]);
+	}
 }

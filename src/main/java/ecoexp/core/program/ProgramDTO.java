@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import ecoexp.common.request.UpdateProgramRequest;
+import java.util.function.Supplier;
 
 import com.google.common.hash.Hashing;
 import ecoexp.common.utils.Generalizer;
@@ -60,10 +62,20 @@ public class ProgramDTO {
 	public ProgramDTO() {
     }
 
+	public ProgramDTO(UpdateProgramRequest data) {
+		setConstructor(()->{this.id = data.id;}, data);
+	}
+
     public ProgramDTO(EcoData data) {
-		String md = Hashing.sha256().hashString(String.format("%s::%s::%s", data.name,data.region, data.theme), StandardCharsets.UTF_8).toString().substring(0,4);
-		this.id = Long.parseLong(md, 16);
-        this.name=data.name;
+		setConstructor(()->{
+				String md = Hashing.sha256().hashString(String.format("%s::%s::%s", data.name,data.region, data.theme), StandardCharsets.UTF_8).toString().substring(0,4);
+				this.id = Long.parseLong(md, 16);
+			}, data);
+    }
+
+	private void setConstructor(Runnable idSetter, EcoData data) {
+		idSetter.run();
+		this.name=data.name;
 		this.region=data.region;
 		this.desc = data.intro;
 		this.detail = data.detail;
@@ -73,19 +85,15 @@ public class ProgramDTO {
 			.forEach(el->this.linkedThemes.add(new ThemeDTO(el,this)));
 
 		Arrays.stream(data.region.split(",")).forEach(x->{
-			Arrays.stream(x.split("~")).forEach(y->{
-				List<String> r= Arrays.stream(y.split(" ", 3)).filter(el->!el.equals("")).collect(Collectors.toList());
+				Arrays.stream(x.split("~")).forEach(y->{
+						List<String> r= Arrays.stream(y.split(" ", 3)).filter(el->!el.equals("")).collect(Collectors.toList());
 
-				for (int i=0; i<2 && i<r.size(); i++) {
-					String n = r.get(i).replace(" ","");
-					if (!name.contains("광역시") && !name.contains("특별시")) {
-						n=Generalizer.region(n);
-					}
-					this.linkedRegions.add(new RegionDTO(n,this));
-				}
+						for (int i=0; i<2 && i<r.size(); i++) {
+							this.linkedRegions.add(new RegionDTO(Generalizer.region(r.get(i)),this));
+						}
+					});
 			});
-		});
-    }
+	}
 
 	public Long getId() {
 		return id;

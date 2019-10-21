@@ -13,6 +13,7 @@ services:
     command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
     volumes:
       - ./etc/mysql/utf.cnf:/etc/mysql/conf.d/utf.cnf
+      - ./etc/mysql/auth.cnf:/etc/mysql/conf.d/auth.cnf
     ports:
       - 3306:3306
 
