@@ -1,6 +1,4 @@
 # 생태 정보 서비스
-
-## 목차
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
