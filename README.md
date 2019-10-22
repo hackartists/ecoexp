@@ -1,5 +1,27 @@
 # 생태 정보 서비스
 
+## 목차
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [생태 정보 서비스](#생태-정보-서비스)
+    - [사전준비사항](#사전준비사항)
+    - [실행](#실행)
+        - [Docker 기반 실행](#docker-기반-실행)
+        - [로컬 테스트 및 컴파일](#로컬-테스트-및-컴파일)
+        - [테스트코드 수행](#테스트코드-수행)
+    - [API 명세 및 테스트](#api-명세-및-테스트)
+        - [API 테스트](#api-테스트)
+        - [API 명세](#api-명세)
+    - [Troubleshooting](#troubleshooting)
+        - [`/v1/eco/batch`가 제대로 동작하지 않을 경우](#v1ecobatch가-제대로-동작하지-않을-경우)
+        - [Postman 환경변수 import 및 사용방법](#postman-환경변수-import-및-사용방법)
+        - [로컬 실행시에 API 가 제대로 동작 하지 않을 경우](#로컬-실행시에-api-가-제대로-동작-하지-않을-경우)
+        - [`/v1/eco/count/keyword`가 동작하지 않을 경우](#v1ecocountkeyword가-동작하지-않을-경우)
+        - [별도의 MySQL 호스트로 테스트를 하고 싶을 경우](#별도의-mysql-호스트로-테스트를-하고-싶을-경우)
+
+<!-- markdown-toc end -->
+
 ## 사전준비사항
   * [Docker 설치 사이트](https://docs.docker.com/v17.09/engine/installation/)에 접속하여 운영체제를 선택하여 Docker 설치 및 dockerd 실행
   * [Docker-compose 설치 사이트](https://docs.docker.com/compose/install/)에 접속하여 운영체제를 선택하여 Docker-compose 설치
