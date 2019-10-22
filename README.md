@@ -70,3 +70,17 @@ API 테스트를 위해서 Postman을 활용한다.
 | GET    | /v1/eco/program/{prgCode}  | 프로그램 코드로 프로그램 정보 조회                            |
 
 ## Troubleshooting
+
+### Postman 환경변수 import 및 사용방법
+  * [Postman learning center](https://learning.getpostman.com/docs/postman/environments_and_globals/manage_environments/) 참고
+
+### 로컬 실행시에 API 가 제대로 동작 하지 않을 경우
+  * [API 테스트](#API-테스트)에서 설명된 것과 같이 Postman Environment 를 `8080`으로 수정했는지 확인
+  
+### `/v1/eco/count/keyword`가 동작하지 않을 경우
+  * `gradle createProc`을 했는지 확인
+    * `gradle createProc`이 제대로 동작하려면, MySQL 도커 컨테이너 이름이 `mysql`이어야 함.
+	
+### 별도의 MySQL 호스트로 테스트를 하고 싶을 경우
+  * (application.properties)[src/main/resources/application.properties]에서 mysql 호스트 이름 수정
+  * (프로시저 생성 스크립트)[src/main/resources/create-proc.sql]를 활용하여 해당 데이터베이스에 프로시저를 생성
