@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import ecoexp.common.request.RecommendRequest;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -141,6 +142,26 @@ public class EcoExperienceServiceTest {
 		assertEquals(r, res.count);
 	}
 
+	@Test public void recommendPlace() throws Exception {
+		RecommendRequest req = new RecommendRequest();
+		req.region = "평창군";
+		req.keyword = "국립공원";
+
+		RegionDTO data = getDefaultRegionDTO();
+		when(regionDAO.findProgramsByName(any(String.class))).thenReturn(data);
+		RecommendResponse res = service.recommendPlace(req);
+
+		assertEquals("prg0521", res.program);
+	}
+
+	@Test public void getProgramByCode() {
+		String req = "prg0521";
+		ProgramDTO data = getDefaultProgramDTO();
+		when(programDAO.findByCode(any(String.class))).thenReturn(data);
+
+		assertEquals(req, service.getProgramByCode(req).code);
+	}
+
 	private ProgramRegionCountDTO getDefaultProgramRegionCountDTO() {
 		ProgramRegionCountDTO res = new ProgramRegionCountDTO();
 		res.setRegion("경상남도 경주시");
@@ -164,11 +185,13 @@ public class EcoExperienceServiceTest {
 
 	private ProgramDTO getDefaultProgramDTO() {
 		ProgramDTO pd = new ProgramDTO();
+		pd.setCode("prg0521");
 		pd.setId((long)13);
 		pd.setDesc("Desc");
 		pd.setDetail("detail");
 		pd.setName("name");
 		pd.setRegion("region");
+		pd.setTheme("자연생태");
 
 		ThemeDTO td = new ThemeDTO();
 		td.setName("theme");

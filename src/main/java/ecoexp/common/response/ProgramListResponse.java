@@ -5,7 +5,7 @@ import ecoexp.core.program.ProgramDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-class programResponse {
+class _programResponse {
 	public Long id;
     public String name;
     public String detail;
@@ -13,7 +13,7 @@ class programResponse {
     public String region;
     public String theme;
 
-    public programResponse(ProgramDTO dto) {
+    public _programResponse(ProgramDTO dto) {
 		this.id = dto.getId();
         this.name = dto.getName();
         this.detail = dto.getDetail();
@@ -27,9 +27,9 @@ class programResponse {
 
 public class ProgramListResponse {
 	public Integer code=0;
-    public List<programResponse> programs=new ArrayList<programResponse>();
+    public List<_programResponse> programs=new ArrayList<_programResponse>();
 
     public void addProgram(ProgramDTO programDTO) {
-        this.programs.add(new programResponse(programDTO));
+        this.programs.add(new _programResponse(programDTO));
     }
 }

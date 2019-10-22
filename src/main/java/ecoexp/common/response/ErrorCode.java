@@ -8,4 +8,6 @@ public class ErrorCode {
 	public static final int UpdateErrorCode = 102;
 	public static final int NotFoundErrorCode = 103;
 	public static final int IOErrorCode=104;
+
+	public static final int UnknownSearchStrategyCode=200;
 }

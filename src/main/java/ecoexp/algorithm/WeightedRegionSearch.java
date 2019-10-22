@@ -95,7 +95,7 @@ public class WeightedRegionSearch implements SearchAlgorithm {
 		logger.debug("In: recommendPlace");
 		RecommendResponse res = new RecommendResponse();
 		Map<String,recommendScore> map = new HashMap<>();
-		recommendScore maxScore = new recommendScore();
+		recommendScore maxScore = new recommendScore(-1,0,0);
 
 		Set<ProgramDTO> data = region.getLinkedPrograms();
 

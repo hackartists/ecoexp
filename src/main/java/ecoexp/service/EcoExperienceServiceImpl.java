@@ -10,6 +10,8 @@ import ecoexp.common.request.KeywordQueryRequest;
 import ecoexp.common.request.RecommendRequest;
 import ecoexp.algorithm.SearchAlgorithm;
 import ecoexp.algorithm.WeightedRegionSearch;
+import ecoexp.algorithm.SearchFactory;
+import ecoexp.algorithm.SearchStrategy;
 
 import ecoexp.common.request.CreateProgramRequest;
 import ecoexp.common.response.ProgramListResponse;
@@ -159,7 +161,8 @@ public class EcoExperienceServiceImpl implements EcoExperienceService {
 		try {
 			String regionName = req.region;
 			RegionDTO data = regionDAO.findProgramsByName(regionName);
-			SearchAlgorithm alg = new WeightedRegionSearch();
+			SearchFactory factory = new SearchFactory();
+			SearchAlgorithm alg = factory.createSearchAlgorithm(SearchStrategy.WeightedRegionStrategy);
 			res = alg.recommendPlace(data, req.keyword);
 		} catch (EcoException e) {
 			logger.error(e.getMessage());

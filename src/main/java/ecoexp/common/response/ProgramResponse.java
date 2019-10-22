@@ -10,6 +10,7 @@ public class ProgramResponse {
 	public String details;
 	public String region;
 
+	public ProgramResponse() { }
 	public ProgramResponse(ProgramDTO data) {
 		this.code = data.getCode();
 		this.name = data.getName();
