@@ -10,10 +10,11 @@ services:
       - MYSQL_USER=ecoexp
       - MYSQL_PASSWORD=ecoexp
     restart: always
-    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
     volumes:
       - ./etc/mysql/utf.cnf:/etc/mysql/conf.d/utf.cnf
       - ./etc/mysql/auth.cnf:/etc/mysql/conf.d/auth.cnf
+      - ./src/main/resources/create-proc.sql:/proc.sql
+      - ./etc/mysql/create-proc.sh:/proc.sh
     ports:
       - 3306:3306
 

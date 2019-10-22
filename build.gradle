@@ -67,3 +67,15 @@ springBoot {
 bootRun {
     classpath = sourceSets.main.runtimeClasspath + configurations.dev
 }
+
+task startDocker(type:Exec) {
+	commandLine './stop.sh'
+
+	//store the output instead of printing to the console:
+	standardOutput = new ByteArrayOutputStream()
+
+	//extension method stopTomcat.output() can be used to obtain the output:
+	ext.output = {
+		return standardOutput.toString()
+	}
+}

@@ -1,11 +1,13 @@
+USE ecoexp;
+
 DROP PROCEDURE IF EXISTS word_freq;
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE word_freq(keyword TEXT)
 BEGIN
 DECLARE total INT;
-DECLARE str TEXT;
 DECLARE len INT;
 DECLARE i INT;
+DECLARE str TEXT;
 DECLARE cur CURSOR FOR SELECT detail FROM programs;
 
 SET total=0;
@@ -27,5 +29,6 @@ UNTIL len=0 END REPEAT;
 CLOSE cur;
 
 select total;
-END //
-DELIMITER;
+END$$
+
+DELIMITER ;
