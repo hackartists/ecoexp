@@ -12,12 +12,17 @@ import ecoexp.common.response.EcoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import ecoexp.service.AuthenticationService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/v1/auth")
 @Controller
 public class AuthController {
+	private Logger logger = LoggerFactory.getLogger(AuthController.class);
+
 	@Autowired
 	private AuthenticationService authService;
 
@@ -33,9 +38,10 @@ public class AuthController {
         return res;
     }
 
-	@PostMapping(path="/refresh/token",produces = "application/json")
-    public EcoResponse refresh() {
-		EcoResponse res = authService.refreshToken();
+	@PostMapping(path="/refresh/token")
+    public EcoResponse refresh(@RequestHeader("Authorization") String token) {
+		logger.debug("In: refresh({})",token);
+		EcoResponse res = authService.refreshToken(token);
         return res;
     }
 }

@@ -69,12 +69,20 @@ bootRun {
 }
 
 task startDocker(type:Exec) {
-	commandLine './stop.sh'
+	commandLine 'docker-compose', 'up','-d'
 
-	//store the output instead of printing to the console:
 	standardOutput = new ByteArrayOutputStream()
 
-	//extension method stopTomcat.output() can be used to obtain the output:
+	ext.output = {
+		return standardOutput.toString()
+	}
+}
+
+task createProc(type:Exec) {
+    commandLine 'docker', 'exec', 'mysql','bash','/proc.sh' 
+
+	standardOutput = new ByteArrayOutputStream()
+
 	ext.output = {
 		return standardOutput.toString()
 	}

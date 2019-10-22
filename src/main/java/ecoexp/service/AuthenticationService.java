@@ -8,5 +8,5 @@ import ecoexp.common.response.EcoResponse;
 public interface AuthenticationService {
 	EcoResponse registerUser(AuthRequest req);
 	EcoResponse validateUser(AuthRequest req);
-	EcoResponse refreshToken();
+	EcoResponse refreshToken(String token);
 }

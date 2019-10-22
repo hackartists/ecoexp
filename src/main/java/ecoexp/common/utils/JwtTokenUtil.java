@@ -11,8 +11,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-public class JwtTokenUtil {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class JwtTokenUtil {
+	private Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
 	public static final long Validity = 5 * 60 * 60;
 	private static final String secret = "secret";
 
@@ -36,11 +39,17 @@ public class JwtTokenUtil {
 	}
 
 	public static Boolean validateToken(String token) {
+		Boolean res=false;
+		try {
 		Claims claims = getClaim(token);
 		final String username = claims.getSubject();
 		final Date expiration = claims.getExpiration();
 
-		Boolean res = new Date().before(expiration);
+		 res= new Date().before(expiration);
+		} catch(Exception e) {
+			logger.error(e.toString());
+			return false;
+		}
 
 		return res;
 	}

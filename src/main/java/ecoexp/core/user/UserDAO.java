@@ -8,4 +8,5 @@ public interface UserDAO {
 	boolean save(UserDTO dto) throws EcoException;
 	boolean update(UserDTO dto) throws EcoException;
 	UserDTO findByUsernameAndPassword(String username, String password) throws EcoException;
+	UserDTO findByUsername(String username) throws EcoException;
 }

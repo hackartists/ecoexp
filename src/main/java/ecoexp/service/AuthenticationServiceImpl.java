@@ -14,6 +14,7 @@ import ecoexp.common.exception.EcoException;
 import ecoexp.common.response.EcoResponse;
 import org.springframework.stereotype.Component;
 import ecoexp.common.utils.Generalizer;
+import ecoexp.common.response.ErrorCode;
 
 @Component
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -72,7 +73,42 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	@Override
-	public EcoResponse refreshToken(){
-		return null;
+	public EcoResponse refreshToken(String token){
+		logger.debug("In: refreshToken({})",token);
+		EcoResponse res = null;
+		String bearer="Bearer Token";
+		if (!token.startsWith(bearer)) {
+			res = new EcoResponse(ErrorCode.NoBearerTokenErrorCode, "no bearer token");
+			logger.error(res.toString());
+			return res;
+		}
+
+		token = token.replace(bearer, "");
+		logger.debug("Unwrapped token: {}", token);
+		if(!JwtTokenUtil.validateToken(token)) {
+			res = new EcoResponse(ErrorCode.InvalidJwtErrorCode, "invalid JWT");
+			logger.error(res.toString());
+			return res;
+		}
+
+		try {
+			String username = JwtTokenUtil.getClaim(token).getSubject();
+			logger.debug("Decoded username: {}",username);
+			UserDTO user = userDAO.findByUsername(username);
+			String jwt = JwtTokenUtil.generateToken(username);
+			user.setJwt(jwt);
+			userDAO.update(user);
+			res = new EcoResponse();
+			res.code=0;
+			TokenIssueResponse ti = new TokenIssueResponse();
+			ti.jwt = user.getJwt();
+			res.message=ti;
+		} catch(EcoException e) {
+			logger.error(e.toString());
+			return e.getEcoResponse();
+		}
+		logger.debug("Out: refreshToken");
+
+		return res;
 	}
 }

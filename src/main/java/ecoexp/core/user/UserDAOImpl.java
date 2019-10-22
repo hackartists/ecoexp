@@ -60,4 +60,14 @@ public class UserDAOImpl implements UserDAO {
 
 		return res;
 	}
+
+	@Override
+	public UserDTO findByUsername(String username) throws EcoException {
+		UserDTO res = userRepository.findByUsername(username);
+		if (res == null) {
+			throw new EcoException(ErrorCode.LoginFailedErrorCode, "Incorrect username or password");
+		}
+
+		return res;
+	}
 }
