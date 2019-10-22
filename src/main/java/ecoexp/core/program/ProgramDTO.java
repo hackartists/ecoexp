@@ -46,7 +46,7 @@ public class ProgramDTO {
 	@JoinTable(
 			name = "region_links",
 			joinColumns = @JoinColumn(name="PROGRAM_ID"),
-			inverseJoinColumns= @JoinColumn(name="REGION_ID"))
+			inverseJoinColumns= @JoinColumn(name="REGION_CODE"))
 	private Set<RegionDTO> linkedRegions=new HashSet<RegionDTO>();
 
 

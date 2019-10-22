@@ -20,6 +20,7 @@ public class UserDTO {
 	private String password;
 
 	@NotNull
+	@Lob
 	@Column(name="JWT")
 	private String jwt;
 

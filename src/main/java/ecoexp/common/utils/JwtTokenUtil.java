@@ -15,7 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JwtTokenUtil {
-	private Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
+	private static Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
+
 	public static final long Validity = 5 * 60 * 60;
 	private static final String secret = "secret";
 

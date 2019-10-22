@@ -12,5 +12,8 @@ public class ErrorCode {
 	public static final int LoginFailedErrorCode = 106;
 	public static final int NoBearerTokenErrorCode = 107;
 	public static final int InvalidJwtErrorCode=108;
+	public static final int EncryptFailedErrorCode=109;
+	public static final int DecryptFailedErrorCode=110;
+
 	public static final int UnknownSearchStrategyCode=200;
 }

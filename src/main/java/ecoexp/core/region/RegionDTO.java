@@ -22,7 +22,6 @@ public class RegionDTO {
 	@Transient
 	private Logger logger = LoggerFactory.getLogger(RegionDTO.class);
 
-	@Id
 	@Column(name="REGION_ID")
     private Long id;
 
@@ -30,8 +29,9 @@ public class RegionDTO {
 	@Column(name="NAME")
     private String name;
 
+	@Id
 	@NotNull
-	@Column(name="REGION_CODE")
+	@Column(name="REGION_CODE", length=10)
 	private String regionCode;
 
 	@ManyToMany(fetch = FetchType.LAZY,

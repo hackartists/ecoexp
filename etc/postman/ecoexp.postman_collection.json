@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "e4e96155-bfc6-4481-aa64-88bf8ecb7ce1",
+		"name": "ecoexp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/v1",
+			"item": [
+				{
+					"name": "/eco",
+					"item": [
+						{
+							"name": "/batch",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{jwt}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/hackartist/data/devel/src/github.com/hackartists/ecoexp/data/data.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/batch",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"batch"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{jwt}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\":\"Test 프로그램\",\n\t\"theme\": \"자연생태체험\",\n\t\"region\": \"부산광역시 금정구\",\n\t\"intro\": \"테스트 수행\",\n\t\"detail\": \"상세 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/create",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/region/{regionId}",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/region/reg34351",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"region",
+										"reg34351"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/program/{prgCode}",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/program/prg33296",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"program",
+										"prg33296"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/update/{program_id}",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{jwt}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"[Update Test]오대산국립공원 힐링캠프\",\n    \"detail\": \" 천년의 숲으로 불리는 오대산 전나무숲과 선재길에서 다양한 숲치유 프로그램 체험\\r\",\n    \"desc\": \"선재길, 한국자생식물원, 전나무숲, 월정사, 방아다리약수\",\n    \"region\": \"강원도 평창군 진부면\",\n    \"theme\": \"숲 치유\",\n    \"code\": \"prg11546\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/update/13",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"update",
+										"13"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/list/region",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{jwt}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"region\":\"평창군\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/list/region",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"list",
+										"region"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/list/regions",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/list/regions",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"list",
+										"regions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/list/keyword/count",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{jwt}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"keyword\":\"세계문화유산\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/list/keyword/count",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"list",
+										"keyword",
+										"count"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/count/keyword",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{jwt}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"keyword\":\"문화\"\n}"
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/count/keyword",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"count",
+										"keyword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/recommend",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{jwt}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"region\":\"남해\",\n\t\"keyword\":\"생태체험\"\n}"
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/eco/recommend",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"eco",
+										"recommend"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "/signup",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"password\":\"{{password}}\"\n}"
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/auth/signup",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/signin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"password\":\"{{password}}\"\n}"
+								},
+								"url": {
+									"raw": "{{eco-host}}/v1/auth/signin",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/refresh/token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer Token{{jwt}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{eco-host}}/v1/auth/refresh/token",
+									"host": [
+										"{{eco-host}}"
+									],
+									"path": [
+										"v1",
+										"auth",
+										"refresh",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/version",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{eco-host}}/version",
+					"host": [
+						"{{eco-host}}"
+					],
+					"path": [
+						"version"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

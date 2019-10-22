@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface RegionRepository extends CrudRepository<RegionDTO, Long> {
+public interface RegionRepository extends CrudRepository<RegionDTO, String> {
     @Query("SELECT r FROM RegionDTO r")
     List<RegionDTO> findAllRegions();
 

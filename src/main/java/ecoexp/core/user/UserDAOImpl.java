@@ -13,6 +13,7 @@ import java.util.*;
 import ecoexp.common.exception.EcoException;
 import ecoexp.common.response.ErrorCode;
 import java.math.BigInteger;
+import ecoexp.common.utils.CryptoUtil;
 
 
 @Component
@@ -22,6 +23,17 @@ public class UserDAOImpl implements UserDAO {
 	@Autowired
 	UserRepository userRepository;
 
+	private  void _save(UserDTO dto) throws EcoException  {
+		logger.debug("In: _save");
+		logger.debug("Original JWT: {}", dto.getJwt());
+		dto.setJwt(CryptoUtil.encrypt(dto.getJwt()));
+		logger.debug("Encrypted JWT: {}", dto.getJwt());
+		userRepository.save(dto);
+		dto.setJwt(CryptoUtil.decrypt(dto.getJwt()));
+		logger.debug("Decrypted JWT: {}", dto.getJwt());
+		logger.debug("Out: _save");
+	}
+
 	@Override
 	public boolean save(UserDTO dto) throws EcoException {
 		logger.debug("In: save");
@@ -30,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
 			logger.error("User({}) already exist", dto.getUsername());
 			throw new EcoException(ErrorCode.UserExistErrorCode, String.format("User(%s) already exist", dto.getUsername()));
 		}
-		userRepository.save(dto);
+		_save(dto);
 
 		logger.debug("Out: save");
 		return true;
@@ -45,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
 			throw new EcoException(ErrorCode.UpdateErrorCode, String.format("User(%s) does not exist", dto.getUsername()));
 		}
 
-		userRepository.save(dto);
+		_save(dto);
 		logger.debug("Out: update");
 
 		return true;
@@ -58,6 +70,8 @@ public class UserDAOImpl implements UserDAO {
 			throw new EcoException(ErrorCode.LoginFailedErrorCode, "Incorrect username or password");
 		}
 
+		res.setJwt(CryptoUtil.decrypt(res.getJwt()));
+
 		return res;
 	}
 
@@ -67,6 +81,8 @@ public class UserDAOImpl implements UserDAO {
 		if (res == null) {
 			throw new EcoException(ErrorCode.LoginFailedErrorCode, "Incorrect username or password");
 		}
+
+		res.setJwt(CryptoUtil.decrypt(res.getJwt()));
 
 		return res;
 	}
