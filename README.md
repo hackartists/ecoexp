@@ -53,20 +53,20 @@ API 테스트를 위해서 Postman을 활용한다.
   
 ### API 명세
 
-| API                             | Content Type        | Parameters                          | 설명                                                          |
-|:--------------------------------|---------------------|-------------------------------------|:--------------------------------------------------------------|
-| POST /v1/auth/signup            | application/json    | username,password                   | 회원가입                                                      |
-| POST /v1/auth/signin            | application/json    | username,password                   | 로그인                                                        |
-| POST /v1/auth/refresh/token     | none                |                                     | 토큰갱신                                                      |
-| POST /v1/eco/batch              | multipart/form-data | file                                | CSV 파일 업로드 및 데이터 삽입                                |
-| POST /v1/eco/create             | application/json    | name,theme,region,intro,detail      | 프로그램 데이터 생성                                          |
-| POST /v1/eco/update/{programId} | application/json    | code,name,theme,region,intro,detail | 프로그램 데이터 업데이트                                      |
-| GET /v1/eco/list/regions        | none                |                                     | 등록된 모든 지역과 지역코드 조회                              |
-| GET /v1/eco/region/{regionId}   | none                |                                     | 지역코드에 등록된 프로그램 조회                               |
-| GET /v1/eco/list/region         | application/json    | region                              | 지역명으로 등록된 프로그램 조회                               |
-| GET /v1/eco/list/keyword/count  | application/json    | keyword                             | 해당 키워드(소개컬럼 기준)로 등록된 지역별 프로그램 갯수 조회 |
-| GET /v1/eco/count/keyword       | application/json    | keyword                             | 등록된 모든 프로그램의 상세컬럼에서 해당 키워드 사용빈도 조회 |
-| GET /v1/eco/recommend           | application/json    | region,keyword                      | 지역,키워드로 프로그램 추천                                   |
-| GET /v1/eco/program/{prgCode}   | none                |                                     | 프로그램 코드로 프로그램 정보 조회                            |
+| API                             | 설명                                                          |
+|:--------------------------------|:--------------------------------------------------------------|
+| POST /v1/auth/signup            | 회원가입                                                      |
+| POST /v1/auth/signin            | 로그인                                                        |
+| POST /v1/auth/refresh/token     | 토큰갱신                                                      |
+| POST /v1/eco/batch              | CSV 파일 업로드 및 데이터 삽입                                |
+| POST /v1/eco/create             | 프로그램 데이터 생성                                          |
+| POST /v1/eco/update/{programId} | 프로그램 데이터 업데이트                                      |
+| GET /v1/eco/list/regions        | 등록된 모든 지역과 지역코드 조회                              |
+| GET /v1/eco/region/{regionId}   | 지역코드에 등록된 프로그램 조회                               |
+| GET /v1/eco/list/region         | 지역명으로 등록된 프로그램 조회                               |
+| GET /v1/eco/list/keyword/count  | 해당 키워드(소개컬럼 기준)로 등록된 지역별 프로그램 갯수 조회 |
+| GET /v1/eco/count/keyword       | 등록된 모든 프로그램의 상세컬럼에서 해당 키워드 사용빈도 조회 |
+| GET /v1/eco/recommend           | 지역,키워드로 프로그램 추천                                   |
+| GET /v1/eco/program/{prgCode}   | 프로그램 코드로 프로그램 정보 조회                            |
 
 ## Troubleshooting
