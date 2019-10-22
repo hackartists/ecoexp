@@ -71,6 +71,10 @@ API 테스트를 위해서 Postman을 활용한다.
 
 ## Troubleshooting
 
+### `/v1/eco/batch`가 제대로 동작하지 않을 경우
+  *  `{{jwt}}`가 유효한 것으로 제대로 설정되어 있는지 확인
+  * `file` 파라미터에 파일이 제대로 설정되어 있는지 확인
+
 ### Postman 환경변수 import 및 사용방법
   * [Postman learning center](https://learning.getpostman.com/docs/postman/environments_and_globals/manage_environments/) 참고
 
