@@ -7,6 +7,9 @@ import ecoexp.common.exception.EcoException;
 import ecoexp.common.request.ListByRegionRequest;
 import ecoexp.core.program.ProgramRegionCountDTO;
 import ecoexp.common.request.KeywordQueryRequest;
+import ecoexp.common.request.RecommendRequest;
+import ecoexp.algorithm.SearchAlgorithm;
+import ecoexp.algorithm.WeightedRegionSearch;
 
 import ecoexp.common.request.CreateProgramRequest;
 import ecoexp.common.response.ProgramListResponse;
@@ -145,6 +148,32 @@ public class EcoExperienceServiceImpl implements EcoExperienceService {
 		res.keyword = keyword.keyword;
 		res.count = programDAO.countKeyword(keyword.keyword);
 		logger.debug("Out: countKeyword");
+
+		return res;
+	}
+
+	@Override
+	public RecommendResponse recommendPlace(RecommendRequest req) {
+		logger.debug("In: recommendPlace({},{})", req.region, req.keyword);
+		RecommendResponse res= new RecommendResponse();
+		try {
+			String regionName = req.region;
+			RegionDTO data = regionDAO.findProgramsByName(regionName);
+			SearchAlgorithm alg = new WeightedRegionSearch();
+			res = alg.recommendPlace(data, req.keyword);
+		} catch (EcoException e) {
+			logger.error(e.getMessage());
+		}
+		logger.debug("Out: recommendPlace");
+
+		return res;
+	}
+
+	@Override
+	public ProgramResponse getProgramByCode(String prgCode) {
+		logger.debug("In: getProgramByCode({})", prgCode);
+		ProgramDTO data = programDAO.findByCode(prgCode);
+		ProgramResponse res = new ProgramResponse(data);
 
 		return res;
 	}

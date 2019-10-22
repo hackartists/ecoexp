@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import ecoexp.common.response.*;
 import ecoexp.common.request.KeywordQueryRequest;
+import ecoexp.common.request.RecommendRequest;
 
 @CrossOrigin
 @RestController
@@ -81,6 +82,14 @@ public class EcoExperienceController {
         return res;
     }
 
+	@GetMapping(path="/program/{prgCode}",produces = "application/json")
+    public ProgramResponse getProgram(@PathVariable String prgCode) {
+		logger.debug("In: getData({})",prgCode);
+		ProgramResponse res = ecoExperienceService.getProgramByCode(prgCode);
+		logger.debug("Out: getData");
+        return res;
+    }
+
     @GetMapping(path="/region/{regionCode}",produces = "application/json")
     public ProgramListResponse getData(@PathVariable String regionCode) {
 		logger.debug("In: getData({})",regionCode);
@@ -113,11 +122,11 @@ public class EcoExperienceController {
         return res;
     }
 
-    // Optional
     @GetMapping(path="/recommend", produces = "application/json")
-    public String recommend() {
-		logger.debug("In: recommend");
+    public RecommendResponse recommend(@RequestBody RecommendRequest req) {
+		logger.debug("In: recommend({},{})", req.region, req.keyword);
+		RecommendResponse res = ecoExperienceService.recommendPlace(req);
 		logger.debug("Out: recommend");
-        return "recommend";
+        return res;
     }
 }

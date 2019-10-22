@@ -68,4 +68,11 @@ public class ProgramDAOImpl implements ProgramDAO {
 
 		return (long)((Integer) data.get(0)[0]);
 	}
+
+	@Override
+	public ProgramDTO findByCode(String code) {
+		ProgramDTO res = programRepository.findByCode(code);
+
+		return res;
+	}
 }

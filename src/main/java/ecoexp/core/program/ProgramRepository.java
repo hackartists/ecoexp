@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.util.List;
 
 public interface ProgramRepository extends CrudRepository<ProgramDTO, Long> {
+	ProgramDTO findByCode(String code);
+
 	@Query(value="SELECT region, COUNT(*) as count FROM programs WHERE programs.description like :keyword GROUP BY region", nativeQuery=true)
 	List<Object[]> countByRegion_Keyword(@Param("keyword") String keyword);
 

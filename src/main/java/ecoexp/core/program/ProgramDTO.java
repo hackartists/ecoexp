@@ -10,6 +10,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import ecoexp.common.request.UpdateProgramRequest;
 import java.util.function.Supplier;
+import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.annotations.NaturalId;
 
 import com.google.common.hash.Hashing;
 import ecoexp.common.utils.Generalizer;
@@ -47,6 +49,7 @@ public class ProgramDTO {
 			inverseJoinColumns= @JoinColumn(name="REGION_ID"))
 	private Set<RegionDTO> linkedRegions=new HashSet<RegionDTO>();
 
+
 	@NotNull
 	@Column(name="REGION")
 	private String region;
@@ -58,6 +61,14 @@ public class ProgramDTO {
 	@Lob
 	@Column(name="DETAIL")
 	private String detail;
+
+	@Column(name="THEME")
+	private String theme;
+
+	@Unique
+	@NaturalId
+	@Column(name="CODE")
+	private String code;
 
 	public ProgramDTO() {
     }
@@ -75,10 +86,12 @@ public class ProgramDTO {
 
 	private void setConstructor(Runnable idSetter, EcoData data) {
 		idSetter.run();
+		this.code=String.format("prg%d", this.id);
 		this.name=data.name;
 		this.region=data.region;
 		this.desc = data.intro;
 		this.detail = data.detail;
+		this.theme = data.theme;
 
 		Arrays.asList(data.theme.split(",")).stream()
 			.filter(el->!el.equals(" ")&&!el.equals(""))
@@ -93,6 +106,22 @@ public class ProgramDTO {
 						}
 					});
 			});
+	}
+
+	public final String getCode() {
+		return code;
+	}
+
+	public final void setCode(final String code) {
+		this.code = code;
+	}
+
+	public final String getTheme() {
+		return theme;
+	}
+
+	public final void setTheme(final String theme) {
+		this.theme = theme;
 	}
 
 	public Long getId() {

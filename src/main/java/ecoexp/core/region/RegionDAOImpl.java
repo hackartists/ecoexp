@@ -51,11 +51,13 @@ public class RegionDAOImpl implements RegionDAO {
 
 	@Override
 	public RegionDTO findProgramsByName(String name) throws EcoException {
-		logger.debug("In: findProgramsByName");
-		List<RegionDTO> res = regionRepository.findProgramsByName(Generalizer.region(name));
+		logger.debug("In: findProgramsByName({})",name);
+		String gName = Generalizer.region(name);
+		logger.debug("Generalized region: {}",gName);
+		List<RegionDTO> res = regionRepository.findProgramsByName(gName);
 		logger.debug("Out: findProgramsByName");
 		if (res.size() < 1) {
-			throw new EcoException(ErrorCode.NotFoundErrorCode, String.format("Not found data with region name ({})", name));
+			throw new EcoException(ErrorCode.NotFoundErrorCode, String.format("Not found data with region name (%s)", name));
 		}
 
 		return res.get(0);

@@ -9,4 +9,5 @@ public interface ProgramDAO {
 	boolean update(ProgramDTO ecoProgram) throws EcoException;
 	List<ProgramRegionCountDTO> countByRegion_Keyword(String keyword);
 	Long countKeyword(String keyword);
+	ProgramDTO findByCode(String code);
 }
