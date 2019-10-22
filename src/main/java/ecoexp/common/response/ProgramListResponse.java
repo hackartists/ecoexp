@@ -12,6 +12,7 @@ class _programResponse {
     public String desc;
     public String region;
     public String theme;
+	public String code;
 
     public _programResponse(ProgramDTO dto) {
 		this.id = dto.getId();
@@ -19,6 +20,7 @@ class _programResponse {
         this.detail = dto.getDetail();
         this.desc = dto.getDesc();
         this.region = dto.getRegion();
+		this.code =dto.getCode();
         List<String> strs = new ArrayList<String>();
         dto.getLinkedThemes().forEach(el->strs.add(el.getName()));
         this.theme = String.join(",",strs);

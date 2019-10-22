@@ -27,17 +27,6 @@ public class EcoExperienceController {
 	@Autowired
 	private EcoExperienceService ecoExperienceService;
 
-    // @GET
-    // @Path("hello/{name}")
-    // @Consumes("application/vnd.asimio-v1+json")
-    // @Produces("application/vnd.asimio-v1+json")
-    // @ApiOperation(value = "Gets a hello resource. World Version 1 (version in Accept Header)",
-    // response = Hello.class)
-    // @ApiResponses(value = {
-    //         @ApiResponse(code = 200, message = "Hello resource found"),
-    //         @ApiResponse(code = 404, message = "Hello resource not found")
-    //     })
-
     @PostMapping(path= "/batch", produces = "application/json")
     public EcoResponse batch( @RequestParam("file") MultipartFile file) {
 		logger.debug("In: batch");

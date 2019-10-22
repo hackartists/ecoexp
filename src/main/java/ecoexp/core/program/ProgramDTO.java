@@ -74,19 +74,21 @@ public class ProgramDTO {
     }
 
 	public ProgramDTO(UpdateProgramRequest data) {
-		setConstructor(()->{this.id = data.id;}, data);
+		setConstructor(()->{this.id = data.id;
+				this.code=data.code;
+			}, data);
 	}
 
     public ProgramDTO(EcoData data) {
 		setConstructor(()->{
 				String md = Hashing.sha256().hashString(String.format("%s::%s::%s", data.name,data.region, data.theme), StandardCharsets.UTF_8).toString().substring(0,4);
 				this.id = Long.parseLong(md, 16);
+				this.code=String.format("prg%d", this.id);
 			}, data);
     }
 
 	private void setConstructor(Runnable idSetter, EcoData data) {
 		idSetter.run();
-		this.code=String.format("prg%d", this.id);
 		this.name=data.name;
 		this.region=data.region;
 		this.desc = data.intro;

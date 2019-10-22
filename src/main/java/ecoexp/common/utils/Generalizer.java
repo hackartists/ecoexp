@@ -1,5 +1,9 @@
 package ecoexp.common.utils;
 
+import com.google.common.hash.Hashing;
+import java.nio.charset.StandardCharsets;
+
+
 public class Generalizer {
     public static String region(String region) {
         String filtered="시군읍면";
@@ -19,4 +23,8 @@ public class Generalizer {
 
         return res;
     }
+
+	public static String password(String pw) {
+		return Hashing.sha256().hashString(String.format("%s", pw), StandardCharsets.UTF_8).toString();
+	}
 }

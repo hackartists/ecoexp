@@ -1,27 +1,38 @@
-// package ecoexp.config;
+package ecoexp.config;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.http.HttpMethod;
-// import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-// @Configuration
-// @EnableWebSecurity
-// public class SecurityConfig extends WebSecurityConfigurerAdapter {
-// 	@Override
-// 	protected void configure(HttpSecurity http) throws Exception {
-// 		// http.csrf().disable().
-// 		// 		authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
-// 		// 		.and().httpBasic();
-// 	}
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-// 	@Autowired
-// 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-// 		// auth.inMemoryAuthentication()
-//         // .withUser("admin").password("{noop}password").roles("USER", "ADMIN").and()
-// 		// 		.withUser("pts_01").password("1234").roles("USER");
-// 	}
-// }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and()
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/v1/auth/**").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			.addFilter(new JwtAuthzFilter(authenticationManager()))
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    // @Override
+    // public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    //     auth.inMemoryAuthentication()
+    //         .withUser("user");
+    // }
+}
