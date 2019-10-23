@@ -77,13 +77,20 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserDTO findByUsername(String username) throws EcoException {
+		logger.debug("In: findByUsername({})", username);
 		UserDTO res = userRepository.findByUsername(username);
+		logger.debug("User Jwt(DTO): {}", res.getJwt());
 		if (res == null) {
 			throw new EcoException(ErrorCode.LoginFailedErrorCode, "Incorrect username or password");
 		}
 
 		res.setJwt(CryptoUtil.decrypt(res.getJwt()));
-
+		logger.debug("Out: findByUsername()");
 		return res;
+	}
+
+	@Override
+	public boolean existsByUsernameAndJwt(String username, String jwt) {
+		return userRepository.existsByUsernameAndJwt(username, jwt);
 	}
 }

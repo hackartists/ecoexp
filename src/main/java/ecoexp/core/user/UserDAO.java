@@ -9,4 +9,5 @@ public interface UserDAO {
 	boolean update(UserDTO dto) throws EcoException;
 	UserDTO findByUsernameAndPassword(String username, String password) throws EcoException;
 	UserDTO findByUsername(String username) throws EcoException;
+	boolean existsByUsernameAndJwt(String username, String jwt);
 }

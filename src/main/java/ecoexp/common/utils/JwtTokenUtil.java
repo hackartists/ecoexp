@@ -2,6 +2,11 @@ package ecoexp.common.utils;
 
 import java.util.*;
 import ecoexp.common.request.AuthRequest;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import ecoexp.core.user.UserDAO;
+import javax.annotation.PostConstruct;
+import ecoexp.core.user.UserDTO;
 
 import java.util.function.Function;
 
@@ -14,11 +19,24 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Component
 public class JwtTokenUtil {
 	private static Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
 
 	public static final long Validity = 5 * 60 * 60;
 	private static final String secret = "secret";
+
+	@Autowired
+	UserDAO dao;
+
+	static UserDAO userDAO = null;
+
+	@PostConstruct
+	private void initStaticDao () {
+		if (userDAO == null) {
+			userDAO = this.dao;
+		}
+	}
 
 	public static Claims getClaim(String token) {
 		Claims res = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
@@ -40,18 +58,23 @@ public class JwtTokenUtil {
 	}
 
 	public static Boolean validateToken(String token) {
+		logger.debug("In: validateToken({})", token);
 		Boolean res=false;
 		try {
-		Claims claims = getClaim(token);
-		final String username = claims.getSubject();
-		final Date expiration = claims.getExpiration();
+			JwtTokenUtil util = new JwtTokenUtil();
+			util.initStaticDao();
 
-		 res= new Date().before(expiration);
+			Claims claims = getClaim(token);
+			String username = claims.getSubject();
+			Date expiration = claims.getExpiration();
+			String encToken = CryptoUtil.encrypt(token);
+			res= new Date().before(expiration) && userDAO.existsByUsernameAndJwt(username,encToken);
 		} catch(Exception e) {
 			logger.error(e.toString());
 			return false;
 		}
 
+		logger.debug("Out: validateToken");
 		return res;
 	}
 }

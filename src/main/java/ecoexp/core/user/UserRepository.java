@@ -9,5 +9,6 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<UserDTO, Long> {
 	UserDTO findByUsername(String username);
 	boolean existsByUsername(String username);
+	boolean existsByUsernameAndJwt(String username, String jwt);
 	UserDTO findByUsernameAndPassword(String username, String password);
 }
